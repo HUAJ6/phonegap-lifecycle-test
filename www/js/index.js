@@ -1,44 +1,33 @@
-var paused_count =0;
-var resumed_count = 0;
-var launched_count = 0;
-
-document.addEventListener("deviceready", onDeviceReady, false);
-		
-	//hkjkjkjk
-function updateDisplay() {
-	$("#launched").text("Application launched: " + launched_count);
-	$("#resumed").text("Application paused: " + paused_count);
-	$("#paused").text("Application resumed: " + resumed_count);
-}
+window.localStorage.setItem( "pen","blue" );
+window.localStorage.setItem( "pen","yellow" );
+window.localStorage.setItem("book","red");
+//window.localStorage.removeItem("pen");
+var pen = window.localStorage.getItem("pen");
+var book=window.localStorage.getItem("book");
+var x= window.localStorage.length;
+//window.alert(x);
 
 
-// device APIs are available
-//
-    function onDeviceReady() {
-	
-	document.addEventListener("resume", onResume, false);
-	document.addEventListener("pause", onPause, false);
-	
-	launched_count++;
-	updateDisplay();
-	    
-	alert("device ready");
-    }
+$( document ).ready(function() {
+    /*$("#book").text("book's colour:"+book);
+    $("#pen").text("pen's colour:"+pen);
+    $("#number").text("stored numbers: "+x);*/
+    
+    var myObj = { "name":"Fudge minis", "calories":"116kcal","fat":"4.2g","saturates":"2.3g","sugars":"16g","salt":"0.08g" };
+    
+    var myJSON = JSON.stringify(myObj);
+    
+    window.localStorage.setItem("chocbar", myJSON);
+    
+    var getChoc = window.localStorage.getItem("chocbar");
 
+    var chocJSON = JSON.parse(getChoc);
+    $("#name").text("name:"+chocJSON.name);
+    $("#fat").text("fat:"+chocJSON.fat);
+    $("#calories").text("fat:"+chocJSON.calories);
+    $("#saturates").text("saturates:"+chocJSON.saturates);
+    $("#sugar").text("sugars:"+chocJSON.sugars);
+    $("#salt").text("salt:"+chocJSON.salt);
 
-    function onPause() {
-	
-	paused_count++;
-	updateDisplay();
-	    
-	alert("pause");
-    }
-	
+});
 
-    function onResume() {
-		
-	resumed_count++;
-	updateDisplay();
-	    
-	alert("resume");
-    }
